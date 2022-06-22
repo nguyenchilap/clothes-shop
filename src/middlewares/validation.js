@@ -1,4 +1,4 @@
-import responseFormat from '../shared/responseFormat';
+import responseFormat from '../shared/responseFormat.js';
 import Joi from 'joi';
 
 const schemas = {
