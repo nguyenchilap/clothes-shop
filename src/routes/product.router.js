@@ -1,7 +1,7 @@
 import StatusCodes from 'http-status-codes';
 import { Router } from 'express';
 import productService from '../services/product.service.js';
-import responseFormat from '../shared/responseFormat';
+import responseFormat from '../shared/responseFormat.js';
 import { validate, schemas } from '../middlewares/validation.js';
 
 const router = Router();

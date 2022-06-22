@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import StatusCodes from 'http-status-codes';
-import responseFormat from '../shared/responseFormat';
+import responseFormat from '../shared/responseFormat.js';
 import { CATEGORIES,
     getRootCategories,
     getCategoryByIndex,
