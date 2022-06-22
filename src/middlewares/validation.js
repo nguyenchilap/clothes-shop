@@ -37,11 +37,8 @@ const schemas = {
           .min(1),
         export_price: Joi.number()
           .min(1),
-        type: Joi.string()
-          .required(),
         stock_quantity: Joi.number()
-          .min(1)
-          .required(),
+          .min(1),
         stock_available: Joi.boolean(),
         special_price: Joi.number(),
         promotion_begin_date: Joi.date(),
@@ -53,8 +50,8 @@ const schemas = {
           .required(),
         product_unit: Joi.number(),
         created_by: Joi.string(),
-        site: Joi.string()
-          .required(),
+        // site: Joi.string()
+        //   .required(),
         image: Joi.string()
           .required(),
         images: Joi.array()

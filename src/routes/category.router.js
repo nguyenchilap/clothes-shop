@@ -25,13 +25,13 @@ categoryRouter.get('/', (req, res) => {
     const categoryName = req.query.name;
 
     if (!CATEGORIES) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-            message: 'Danh mục rỗng' 
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+            message: 'Danh mục rỗng.' 
         }, {})).end();
     }
 
     if (!categoryId && !categoryName) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, {}, { 
+        return res.status(StatusCodes.OK).json(responseFormat(true, {}, { 
             categories: CATEGORIES.map((category, idx) => {
                 category.id = idx;
                 return category;
@@ -42,23 +42,21 @@ categoryRouter.get('/', (req, res) => {
     if (categoryId) {
         const category = getCategoryByIndex(Number.parseInt(categoryId));
         if (!category) {
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Danh mục không tồn tại' 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Danh mục không tồn tại.' 
             }, {})).end();
         }
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(responseFormat(false, {}, { category })).end();
+        return res.status(StatusCodes.OK).json(responseFormat(true, {}, { category })).end();
     }
 
     if (categoryName) {
         const category = getCategoryByName(Number.parseInt(categoryId));
         if (!category) {
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Danh mục không tồn tại' 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Danh mục không tồn tại.' 
             }, {})).end();
         }
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(responseFormat(false, {}, { category })).end();
+        return res.status(StatusCodes.OK).json(responseFormat(true, {}, { category })).end();
     }
     
 });
@@ -75,12 +73,12 @@ categoryRouter.get('/root', (req, res) => {
 
     const categories = getRootCategories();
     if (!categories || categories.length <= 0) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
             message: 'Danh mục rỗng' 
         }, {})).end();
     }
 
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, {}, { categories })).end();
+    return res.status(StatusCodes.OK).json(responseFormat(true, {}, { categories })).end();
 });
 
 
@@ -96,7 +94,7 @@ categoryRouter.get('/child', (req, res) => {
     const categoryId = req.query.id;
 
     if (!categoryId) {
-        res.status(StatusCodes.BAD_REQUEST).json(responseFormat(false, { 
+        return res.status(StatusCodes.BAD_REQUEST).json(responseFormat(false, { 
             message: 'Cần biết id của danh mục.' 
         }, {})).end();
     }
@@ -104,12 +102,12 @@ categoryRouter.get('/child', (req, res) => {
     const categories = getChildCategoriesByParentIndex(Number.parseInt(categoryId));
 
     if (!categories || categories.length <= 0) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
             message: 'Danh mục không có danh mục con.' 
         }, {})).end();
     }
 
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, {}, { categories })).end();
+    return res.status(StatusCodes.OK).json(responseFormat(true, {}, { categories })).end();
 });
 
 

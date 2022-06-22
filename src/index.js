@@ -32,7 +32,7 @@ app.use(cors(corsOption));
 //Route init
 app.use('/api', baseRouter);
 
-const server = app.listen(process.env.PORT || 5000, () => {
+const server = app.listen(process.env.PORT || 8080, () => {
   const port = server.address().port;
   console.log(`Express is working on port ${port}`);
 });

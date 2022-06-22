@@ -404,7 +404,6 @@ function getProductUnitByCode(code) {
 }
 
 function getRootCategories() {
-
     return CATEGORIES.map((category, idx) => {
         category.id = idx;
         return category;
@@ -429,10 +428,20 @@ function getChildCategoriesByParentIndex(parentIndex) {
     }).filter(category => category.parent_id === parentIndex);
 }
 
+function isPrimaryCategory(index) {
+    const category = CATEGORIES[index];
+    if (category) {
+        if (category.is_primary) return true;
+        return false;
+    }
+    return false
+}
+
 
 export {
     PRODUCT_UNIT,
     CATEGORIES,
+    isPrimaryCategory,
     getProductUnitByCode,
     getRootCategories,
     getCategoryByIndex,

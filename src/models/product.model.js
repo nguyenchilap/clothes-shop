@@ -20,9 +20,10 @@ const Config = new Schema({
 
 const Variant = new Schema({
     sku: String,
+    price: Number,
     config: [Config],
     stock_quantity: Number,
-    stock_available: Boolean
+    stock_available: {type: Boolean, default: true},
 }, {
     timestamps: false, id: false
 });
