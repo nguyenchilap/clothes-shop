@@ -46,7 +46,7 @@ const Product = new Schema({
     variants: [Variant],
     parameters: [Parameter],
     created_by: {type: Schema.Types.ObjectId, ref: 'User'},
-    site: {type: Schema.Types.ObjectId, ref: 'Site'}
+    shop: {type: Schema.Types.ObjectId, ref: 'Shop'}
 }, {
     timestamps: true,
     id: true
