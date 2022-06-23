@@ -1,4 +1,6 @@
-import productRepo from '../repos/product.repo.js'
+import productRepo from '../repos/product.repo.js';
+import { CATEGORIES,
+    getCategoryByIndex } from '../models/enums.js';
 
 class ProductService {
 
@@ -19,10 +21,23 @@ class ProductService {
         return await productRepo.create(product);
     }
 
+    async getAllProducts(query, page, limit) {
+        const products = await productRepo.find(query, page, limit);
+        if (products.docs.length <= 0) return products;
+        products.docs.map(product => {
+            product.category = getCategoryByIndex(product.category);
+            return product;
+        });
+        return products;
+    }
+
     async getProductById(productId) {
-        return await productRepo.findOne({
+        let product = await productRepo.findOne({
             _id: productId
-        })
+        });
+        if (!product.category) return product;
+        product.category = getCategoryByIndex(product.category);
+        return product;
     }
 
 }

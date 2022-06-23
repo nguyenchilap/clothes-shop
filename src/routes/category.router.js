@@ -39,25 +39,20 @@ categoryRouter.get('/', (req, res) => {
         })).end();
     }
 
+    let category;
+
     if (categoryId) {
-        const category = getCategoryByIndex(Number.parseInt(categoryId));
-        if (!category) {
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Danh mục không tồn tại.' 
-            }, {})).end();
-        }
-        return res.status(StatusCodes.OK).json(responseFormat(true, {}, { category })).end();
+        category = getCategoryByIndex(Number.parseInt(categoryId));
+    } else if (categoryName) {
+        category = getCategoryByName(categoryName);
     }
 
-    if (categoryName) {
-        const category = getCategoryByName(Number.parseInt(categoryId));
-        if (!category) {
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Danh mục không tồn tại.' 
-            }, {})).end();
-        }
-        return res.status(StatusCodes.OK).json(responseFormat(true, {}, { category })).end();
+    if (!category) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+            message: 'Danh mục không tồn tại.' 
+        }, {})).end();
     }
+    return res.status(StatusCodes.OK).json(responseFormat(true, {}, { category })).end();
     
 });
 

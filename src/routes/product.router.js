@@ -44,16 +44,66 @@ router.post('/', validate(schemas.createProduct), async (req, res) => {
 });
 
 /**
- * Create product
+ * Get all products
  * 
  * GET
- * /api/products
+ * /api/products?page=&limit=&category_id=&
  * 
  */
-router.get('/', (req, res) => {
-    res.status(StatusCodes.OK).json({
-        message: req.params.site
-    }).end();
+router.get('/', async (req, res) => {
+
+    let page = 1, limit = 10, query = {};
+
+    if (req.query.page) page = req.query.page.toString();
+    if (req.query.limit) limit = req.query.limit.toString();
+    if (req.query.category_id) query.category = Number.parseInt(req.query.category_id.toString());
+
+    try {
+        const products = await productService.getAllProducts(query, page, limit);
+        if (products.docs.length <= 0) 
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Không tìm thấy danh sách sản phẩm yêu cầu.' 
+            }, {})).end();
+
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
+            products: products.docs,
+            pagination: {
+                ...products,
+                docs: null
+            }
+        }));
+
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
+});
+
+
+/**
+ * Get product by id
+ * 
+ * GET
+ * /api/products/id
+ * 
+ */
+ router.get('/:id', async (req, res) => {
+
+    const productId = req.params.id;
+
+    try {
+        const product = await productService.getProductById(productId);
+        if (!product) 
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Không tìm thấy sản phẩm yêu cầu.' 
+            }, {})).end();
+
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
+            product
+        }));
+
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
 });
 
 export default router;

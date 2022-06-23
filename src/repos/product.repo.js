@@ -7,7 +7,8 @@ class ProductRepo {
     }
 
     async findOne(query) {
-        return await Product.findOne(query);
+        const product = await Product.findOne(query).lean();
+        return product;
     }
 
     async find(query, page, limit) {

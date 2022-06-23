@@ -411,14 +411,11 @@ function getRootCategories() {
 }
 
 function getCategoryByIndex(index) {
-    return CATEGORIES.map((category, idx) => {
-        category.id = idx;
-        return category;
-    }).find(category => category.id === index);
+    return CATEGORIES[index];
 }
 
 function getCategoryByName(name) {
-    return CATEGORIES.find(category => category.name === name);
+    return CATEGORIES.filter(category => category.name.includes(name));
 }
 
 function getChildCategoriesByParentIndex(parentIndex) {
