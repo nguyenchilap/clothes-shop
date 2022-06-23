@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const Site = new Schema({
+const Shop = new Schema({
 
     name: String,
     address: String,
@@ -14,4 +14,4 @@ const Site = new Schema({
     id: true
 });
 
-export default mongoose.model('Site', Site, 'sites');
+export default mongoose.model('Shop', Shop, 'shops');
