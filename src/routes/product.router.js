@@ -29,7 +29,7 @@ router.post('/', validate(schemas.createProduct), async (req, res) => {
     try {
         const newProduct = await productService.createProduct(req.body);
         if (!newProduct) 
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Mã sản phẩm đã tồn tại' 
             }, {})).end();
 
@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
     try {
         const products = await productService.getAllProducts(query, page, limit);
         if (products.docs.length <= 0) 
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Không tìm thấy danh sách sản phẩm yêu cầu.' 
             }, {})).end();
 
@@ -93,7 +93,7 @@ router.get('/', async (req, res) => {
     try {
         const product = await productService.getProductById(productId);
         if (!product) 
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Không tìm thấy sản phẩm yêu cầu.' 
             }, {})).end();
 

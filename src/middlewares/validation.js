@@ -3,7 +3,7 @@ import Joi from 'joi';
 
 const schemas = {
 
-    signUpSchema: Joi.object({
+    createUser: Joi.object({
         email: Joi.string()
           .email()
           .lowercase()
