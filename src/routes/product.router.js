@@ -3,12 +3,11 @@ import { Router } from 'express';
 import productService from '../services/product.service.js';
 import responseFormat from '../shared/responseFormat.js';
 import { validate, schemas } from '../middlewares/validation.js';
+import { jwtAuth } from '../middlewares/auth.js';
 import { isPrimaryCategory } from '../models/enums.js'
 
+//define constant
 const router = Router();
-
-
-//define route
 
 
 /**
@@ -18,7 +17,7 @@ const router = Router();
  * /api/products
  * 
  */
-router.post('/', validate(schemas.createProduct), async (req, res) => {
+router.post('/', jwtAuth(), validate(schemas.createProduct), async (req, res) => {
     
     if (!isPrimaryCategory(req.body.category)) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
@@ -35,7 +34,7 @@ router.post('/', validate(schemas.createProduct), async (req, res) => {
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
             product: newProduct
-        }));
+        })).end();
 
     } catch(e) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()

@@ -3,7 +3,7 @@ import { Strategy as JwtStrategy } from "passport-jwt";
 import { Strategy as LocalStrategy } from "passport-local";
 import { ExtractJwt } from "passport-jwt";
 
-import userService from "../services/user.service";
+import userService from "../services/user.service.js";
 
 import AUTH_CONSTANT from "../configs/auth/index.js";
 
@@ -16,11 +16,11 @@ passport.use(new JwtStrategy(options, async function(jwt_payload, done) {
     try {
         const user = userService.findById(jwt_payload.sub);
         if (user) {
-            done(null, {id: user._id});
+            return done(null, {id: user._id});
         }
-        done(null, false);
+        return done(null, false);
     } catch (e) {
-        done(e, false);
+        return done(e, false);
     }
 }));
 
@@ -34,10 +34,10 @@ passport.use(new LocalStrategy(
     
         if (user) {
             return done(null, {
-            id: user._id,
-            email: user.email,
-            name: user.name,
-            phone: user.phone
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                phone: user.phone
             });
         }
         return done(null, false);

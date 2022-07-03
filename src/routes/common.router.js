@@ -4,10 +4,9 @@ import responseFormat from '../shared/responseFormat.js';
 import { PRODUCT_UNIT,
     getProductUnitByCode } from '../models/enums.js'
 
-
+//define constant
 const commonRouter = Router();
 
-//define route
 
 /**
  * Get all product units

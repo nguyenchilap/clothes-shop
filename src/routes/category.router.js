@@ -7,10 +7,9 @@ import { CATEGORIES,
     getCategoryByName,
     getChildCategoriesByParentIndex } from '../models/enums.js'
 
-
+//define constant
 const categoryRouter = Router();
 
-//define route
 
 /**
  * Get all categories
