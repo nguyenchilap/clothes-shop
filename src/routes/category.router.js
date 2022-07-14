@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import StatusCodes from 'http-status-codes';
 import responseFormat from '../shared/responseFormat.js';
+import { jwtAuth } from '../middlewares/auth.js';
 import { CATEGORIES,
     getRootCategories,
     getCategoryByIndex,
     getCategoryByName,
     getChildCategoriesByParentIndex } from '../models/enums.js'
+
 
 //define constant
 const categoryRouter = Router();
