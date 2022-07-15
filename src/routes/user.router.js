@@ -26,7 +26,7 @@ userRouter.post('/', validate(schemas.createUser), async (req, res) => {
                 message: 'Email đã tồn tại' 
             }, {})).end();
 
-        return res.status(StatusCodes.OK).json(responseFormat(true, {} , newUser));
+        return res.status(StatusCodes.CREATED).json(responseFormat(true, {} , newUser));
 
     } catch(e) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()

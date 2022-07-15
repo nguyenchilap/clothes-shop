@@ -7,8 +7,20 @@ class ProductRepo {
     }
 
     async findOne(query) {
-        const product = await Product.findOne(query).lean();
+        const product = await Product.findOne(query).populate('shop').lean();
         return product;
+    }
+
+    async findById(id) {
+        const product = await Product.findOne({_id: id}).populate('shop').lean();
+        return product;
+    }
+
+    async findByIds(ids) {
+        const products = await Product.find({
+            _id: { $in: ids }
+        }).populate('shop').lean();
+        return products;
     }
 
     async find(query, page, limit) {
@@ -16,6 +28,7 @@ class ProductRepo {
             page,
             limit,
             lean: true,
+            populate: 'shop',
             select: ['-created_by']
         });
     }

@@ -58,6 +58,15 @@ const schemas = {
           .items(Joi.string()),
     }),
 
+    createShop: Joi.object({
+      name: Joi.string()
+          .required(),
+      address: Joi.string()
+          .required(),
+      birth_day: Joi.date(),
+      years_old: Joi.number()
+    })
+
 }
 
 function validate(schema) {

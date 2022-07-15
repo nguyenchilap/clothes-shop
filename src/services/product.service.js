@@ -32,12 +32,31 @@ class ProductService {
     }
 
     async getProductById(productId) {
-        let product = await productRepo.findOne({
-            _id: productId
-        });
+        let product = await productRepo.findById(productId);
         if (!product.category) return product;
         product.category = getCategoryByIndex(product.category);
         return product;
+    }
+
+    async updateProduct(product) {
+        let currProduct = await productRepo.findById(product.id);
+        if (!currProduct) return false;
+
+        return await productRepo.updateOne({_id: product.id}, product);
+    }
+
+    async deleteProduct(productId) {
+        let product = await productRepo.findById(productId);
+        if (!product) return false;
+
+        return await productRepo.deleteOne({_id: productId});
+    }
+
+    async deleteProducts(productIds) {
+        let products = await productRepo.findByIds(productIds);
+        if (products.length < productIds.length) return false;
+        
+        return await productRepo.deleteMany(productIds);
     }
 
 }

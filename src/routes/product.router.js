@@ -32,7 +32,7 @@ router.post('/', jwtAuth(), validate(schemas.createProduct), async (req, res) =>
                 message: 'Mã sản phẩm đã tồn tại' 
             }, {})).end();
 
-        return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
+        return res.status(StatusCodes.CREATED).json(responseFormat(true, {} , {
             product: newProduct
         })).end();
 
@@ -99,6 +99,80 @@ router.get('/', async (req, res) => {
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
             product
         }));
+
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
+});
+
+
+/**
+ * Update product
+ * 
+ * PATCH
+ * /api/products
+ * 
+ */
+ router.patch('/', jwtAuth(), async (req, res) => {
+    try {
+        const isUpdated = await productService.updateProduct(req.body);
+
+        if (!isUpdated) 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Sản phẩm ' + req.body.id + ' không tồn tại.' 
+            }, {})).end();
+
+        const newProduct = await productService.getProductById(req.body.id);
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , { product: newProduct }));
+
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
+});
+
+
+/**
+ * Delete one product
+ * 
+ * DELETE
+ * /api/products/{id}
+ * 
+ */
+router.delete('/:id', jwtAuth(), async (req, res) => {
+    const productId = req.params.id;
+    try {
+        const isDeleted = await productService.deleteProduct(productId);
+
+        if (!isDeleted) 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Sản phẩm ' + productId + ' không tồn tại.' 
+            }, {})).end();
+
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , { message: "Đã xóa." }));
+
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
+});
+
+/**
+ * Delete multi product
+ * 
+ * DELETE
+ * /api/products
+ * 
+ */
+ router.delete('/', jwtAuth(), async (req, res) => {
+    const productIds = req.body;
+    try {
+        const isDeleted = await productService.deleteProducts(productIds);
+
+        if (!isDeleted) 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Danh sách có chứa sản phẩm không tồn tại.' 
+            }, {})).end();
+
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , { message: "Đã xóa." }));
 
     } catch(e) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
