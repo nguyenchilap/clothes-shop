@@ -1,3 +1,4 @@
+import './pre-start/index.js';
 import express from 'express';
 import morgan from 'morgan';
 import baseRouter from './routes/api.router.js';

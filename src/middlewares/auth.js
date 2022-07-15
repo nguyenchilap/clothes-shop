@@ -5,11 +5,9 @@ import { ExtractJwt } from "passport-jwt";
 
 import userService from "../services/user.service.js";
 
-import AUTH_CONSTANT from "../configs/auth/index.js";
-
 const options = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: AUTH_CONSTANT.JWT_SECRET
+    secretOrKey: process.env.JWT_SECRET
 };
 
 passport.use(new JwtStrategy(options, async function(jwt_payload, done) {

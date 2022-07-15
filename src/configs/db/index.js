@@ -1,10 +1,8 @@
 import mongoose from 'mongoose';
 
-const DB = 'mongodb+srv://nclap:Lapboy20@cluster0.gmwsi.mongodb.net/clothes_shop?retryWrites=true&w=majority';
-
 async function connect(){
     try{
-        await mongoose.connect(DB, {
+        await mongoose.connect(process.env.DB_HOST, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
