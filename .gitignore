@@ -3,4 +3,6 @@ package-lock.json
 
 node_modules/
 
+src/pre-start/env
+
 
