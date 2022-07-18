@@ -56,6 +56,8 @@ const schemas = {
           .required(),
         images: Joi.array()
           .items(Joi.string()),
+        shop: Joi.string()
+          .required()
     }),
 
     createShop: Joi.object({

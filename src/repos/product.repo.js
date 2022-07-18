@@ -29,7 +29,8 @@ class ProductRepo {
             limit,
             lean: true,
             populate: 'shop',
-            select: ['-created_by']
+            select: ['-created_by'],
+            sort: ['-createdAt']
         });
     }
 

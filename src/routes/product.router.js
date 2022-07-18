@@ -46,7 +46,7 @@ router.post('/', jwtAuth(), validate(schemas.createProduct), async (req, res) =>
  * Get all products
  * 
  * GET
- * /api/products?page=&limit=&category_id=&
+ * /api/products?name=&page=&limit=&category_id=&
  * 
  */
 router.get('/', async (req, res) => {
@@ -56,6 +56,7 @@ router.get('/', async (req, res) => {
     if (req.query.page) page = req.query.page.toString();
     if (req.query.limit) limit = req.query.limit.toString();
     if (req.query.category_id) query.category = Number.parseInt(req.query.category_id.toString());
+    if (req.query.name) query.name = new RegExp(req.query.name, 'i');
 
     try {
         const products = await productService.getAllProducts(query, page, limit);
