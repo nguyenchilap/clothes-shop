@@ -2,7 +2,6 @@ import { Router } from 'express';
 import StatusCodes from 'http-status-codes';
 import responseFormat from '../shared/responseFormat.js';
 import { validate, schemas } from '../middlewares/validation.js';
-import { jwtAuth } from '../middlewares/auth.js';
 
 import userService from '../services/user.service.js';
 
@@ -41,7 +40,7 @@ userRouter.post('/', validate(schemas.createUser), async (req, res) => {
  * /api/users/{id}
  * 
  */
- userRouter.get('/:id', jwtAuth(), async (req, res) => {
+ userRouter.get('/:id', async (req, res) => {
 
     try {
         const userId = req.params.id;

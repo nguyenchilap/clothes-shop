@@ -3,7 +3,7 @@ import { Router } from 'express';
 import shopService from '../services/shop.service.js';
 import responseFormat from '../shared/responseFormat.js';
 import { validate, schemas } from '../middlewares/validation.js';
-import { jwtAuth } from '../middlewares/auth.js';
+
 
 //define constant
 const router = Router();
@@ -17,7 +17,7 @@ const router = Router();
  * /api/shops
  * 
  */
-router.post('/', jwtAuth(), validate(schemas.createShop), async (req, res) => {
+router.post('/', validate(schemas.createShop), async (req, res) => {
 
     try {
         const newShop = await shopService.createShop(req.body);
@@ -97,7 +97,7 @@ router.post('/', jwtAuth(), validate(schemas.createShop), async (req, res) => {
  * /api/shops
  * 
  */
- router.patch('/', jwtAuth(), async (req, res) => {
+ router.patch('/', async (req, res) => {
 
     try {
         const isUpdated = await shopService.updateShop(req.body);

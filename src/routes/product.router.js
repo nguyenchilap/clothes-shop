@@ -3,7 +3,6 @@ import { Router } from 'express';
 import productService from '../services/product.service.js';
 import responseFormat from '../shared/responseFormat.js';
 import { validate, schemas } from '../middlewares/validation.js';
-import { jwtAuth } from '../middlewares/auth.js';
 import { isPrimaryCategory } from '../models/enums.js'
 
 //define constant
@@ -17,7 +16,7 @@ const router = Router();
  * /api/products
  * 
  */
-router.post('/', jwtAuth(), validate(schemas.createProduct), async (req, res) => {
+router.post('/', validate(schemas.createProduct), async (req, res) => {
     
     if (!isPrimaryCategory(req.body.category)) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
@@ -26,7 +25,11 @@ router.post('/', jwtAuth(), validate(schemas.createProduct), async (req, res) =>
     }
 
     try {
-        const newProduct = await productService.createProduct(req.body);
+        const user = req.user;
+        const product = req.body;
+        product.created_by = user.id;
+
+        const newProduct = await productService.createProduct(product);
         if (!newProduct) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Mã sản phẩm đã tồn tại' 
@@ -114,7 +117,7 @@ router.get('/', async (req, res) => {
  * /api/products
  * 
  */
- router.patch('/', jwtAuth(), async (req, res) => {
+ router.patch('/', async (req, res) => {
     try {
         const isUpdated = await productService.updateProduct(req.body);
 
@@ -139,7 +142,7 @@ router.get('/', async (req, res) => {
  * /api/products/{id}
  * 
  */
-router.delete('/:id', jwtAuth(), async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const productId = req.params.id;
     try {
         const isDeleted = await productService.deleteProduct(productId);
@@ -163,7 +166,7 @@ router.delete('/:id', jwtAuth(), async (req, res) => {
  * /api/products
  * 
  */
- router.delete('/', jwtAuth(), async (req, res) => {
+ router.delete('/', async (req, res) => {
     const productIds = req.body;
     try {
         const isDeleted = await productService.deleteProducts(productIds);
