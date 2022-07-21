@@ -13,7 +13,6 @@ const schemas = {
           .required(),
         confirm_password: Joi.ref('password'),
         name: Joi.string()
-          .min(3)
           .required()
     }),
       

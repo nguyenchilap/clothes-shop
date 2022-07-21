@@ -2,10 +2,13 @@ import { Router } from 'express';
 import StatusCodes from 'http-status-codes';
 import responseFormat from '../shared/responseFormat.js';
 import { PRODUCT_UNIT,
-    getProductUnitByCode } from '../models/enums.js'
+    getProductUnitByCode } from '../models/enums.js';
+import upload from '../middlewares/multer.js';
+import cloudinary from '../shared/cloudinary.js';
+import fs from 'fs';
 
 //define constant
-const commonRouter = Router();
+const router = Router();
 
 
 /**
@@ -15,7 +18,7 @@ const commonRouter = Router();
  * /api/commons/units/product?name=&code=&
  * 
  */
-commonRouter.get('/units/product', (req, res) => {
+router.get('/units/product', (req, res) => {
 
     const productUnitName = req.query.name;
     const productUnitCode = req.query.code;
@@ -49,5 +52,23 @@ commonRouter.get('/units/product', (req, res) => {
 
 });
 
+/**
+ * upload images
+ * 
+ * POST
+ * /api/commons/upload-images
+ * 
+ */
+router.post('/upload-images', upload.array('images'), async (req, res) => {
+    try {
+        if (!req.files) 
+            return res.status(StatusCodes.BAD_REQUEST).json(responseFormat(true, { message: 'Chưa có ảnh.' }, {}));
+        const paths = req.files.map(image => image.path);
+        return res.status(StatusCodes.CREATED).json(responseFormat(true, {}, paths));
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
+});
 
-export default commonRouter;
+
+export default router;

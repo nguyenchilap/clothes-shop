@@ -34,6 +34,37 @@ userRouter.post('/', validate(schemas.createUser), async (req, res) => {
 });
 
 /**
+ * Get all users
+ * 
+ * GET
+ * /api/users
+ * 
+ */
+userRouter.get('/', async (req, res) => {
+
+    const type = req.query.type;
+
+    try {
+        let users;
+        if (type === 'staff') {
+            users = await userService.findAllStaff();
+        } else if (type === 'buyer') {
+            users = await userService.findAllNotStaff();
+        } else {
+            users = await userService.findAll();
+        }
+        if (!users) 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, {})).end();
+
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , users));
+
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
+
+});
+
+/**
  * Get user info by id
  * 
  * GET
@@ -46,7 +77,7 @@ userRouter.post('/', validate(schemas.createUser), async (req, res) => {
         const userId = req.params.id;
         const user = await userService.findById(userId);
         if (!user) 
-            return res.status(StatusCodes.CONFLICT).json(responseFormat(false, { 
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Người dùng không tồn tại' 
             }, {})).end();
 
@@ -57,5 +88,6 @@ userRouter.post('/', validate(schemas.createUser), async (req, res) => {
     }
 
 });
+
 
 export default userRouter;

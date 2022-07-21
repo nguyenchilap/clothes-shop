@@ -43,7 +43,7 @@ router.post('/', validate(schemas.createShop), async (req, res) => {
  * /api/shops
  * 
  */
- router.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
 
     try {
         const shops = await shopService.getAllShops();
@@ -69,7 +69,7 @@ router.post('/', validate(schemas.createShop), async (req, res) => {
  * /api/shops/{id}
  * 
  */
- router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 
     const shopId = req.params.id;
 
@@ -97,7 +97,7 @@ router.post('/', validate(schemas.createShop), async (req, res) => {
  * /api/shops
  * 
  */
- router.patch('/', async (req, res) => {
+router.patch('/', async (req, res) => {
 
     try {
         const isUpdated = await shopService.updateShop(req.body);

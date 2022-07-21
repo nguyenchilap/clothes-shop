@@ -89,7 +89,7 @@ router.get('/', async (req, res) => {
  * /api/products/id
  * 
  */
- router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 
     const productId = req.params.id;
 
@@ -117,7 +117,7 @@ router.get('/', async (req, res) => {
  * /api/products
  * 
  */
- router.patch('/', async (req, res) => {
+router.patch('/', async (req, res) => {
     try {
         const isUpdated = await productService.updateProduct(req.body);
 

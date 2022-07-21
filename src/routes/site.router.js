@@ -18,7 +18,7 @@ const encodeToken = (id) => {
     })
 }
 
-const siteRouter = Router();
+const router = Router();
 
 
 /**
@@ -28,7 +28,7 @@ const siteRouter = Router();
  * /api/login
  * 
  */
-siteRouter.post('/login', passport.authenticate('local', { session: false }), async (req, res) => {
+router.post('/login', passport.authenticate('local', { session: false }), async (req, res) => {
 
     try {
         const user = req.user;
@@ -48,4 +48,4 @@ siteRouter.post('/login', passport.authenticate('local', { session: false }), as
 
 });
 
-export default siteRouter;
+export default router;

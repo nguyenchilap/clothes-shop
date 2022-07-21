@@ -12,6 +12,22 @@ class UserService {
         return newUser;
     }
 
+    async find(query) {
+        return await userRepo.find(query);
+    }
+
+    async findAll() {
+        return await userRepo.find();
+    }
+
+    async findAllStaff() {
+        return await userRepo.find({ staff: { $exists : true } });
+    }
+
+    async findAllNotStaff() {
+        return await userRepo.find({ staff: { $exists : false } });
+    }
+
     async findById(id) {
         return await userRepo.findOne({_id: id});
     }
