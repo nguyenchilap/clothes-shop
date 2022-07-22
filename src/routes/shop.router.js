@@ -31,6 +31,7 @@ router.post('/', validate(schemas.createShop), async (req, res) => {
         })).end();
 
     } catch(e) {
+        console.log(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
     }
 
@@ -57,6 +58,7 @@ router.get('/', async (req, res) => {
         })).end();
 
     } catch(e) {
+        console.log(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
     }
 
@@ -85,6 +87,7 @@ router.get('/:id', async (req, res) => {
         })).end();
 
     } catch(e) {
+        console.log(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
     }
 
@@ -112,6 +115,7 @@ router.patch('/', async (req, res) => {
         })).end();
 
     } catch(e) {
+        console.log(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
     }
 

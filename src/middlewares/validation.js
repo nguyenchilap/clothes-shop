@@ -66,6 +66,11 @@ const schemas = {
           .required(),
       birth_day: Joi.date(),
       years_old: Joi.number()
+    }),
+
+    createShift: Joi.object({
+      from_date: Joi.string()
+          .required(),
     })
 
 }

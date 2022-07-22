@@ -1,42 +1,30 @@
 import StatusCodes from 'http-status-codes';
 import { Router } from 'express';
-import productService from '../services/product.service.js';
+import shiftService from '../services/shift.service.js';
 import responseFormat from '../shared/responseFormat.js';
 import { validate, schemas } from '../middlewares/validation.js';
-import { isPrimaryCategory } from '../models/enums.js'
 
 //define constant
 const router = Router();
 
-
 /**
- * Create product
+ * Create shift
  * 
  * POST
- * /api/products
+ * /api/shifts
  * 
  */
-router.post('/', validate(schemas.createProduct), async (req, res) => {
-    
-    if (!isPrimaryCategory(req.body.category)) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-            message: 'Danh mục sản phẩm không hợp lệ' 
-        }, {})).end();
-    }
+router.post('/', validate(schemas.createShift), async (req, res) => {
 
     try {
-        const user = req.user;
-        const product = req.body;
-        product.created_by = user.id;
-
-        const newProduct = await productService.createProduct(product);
-        if (!newProduct) 
+        const shift = await shiftService.createShift(req.body);
+        if (!shift) 
             return res.status(StatusCodes.CONFLICT).json(responseFormat(false, { 
-                message: 'Mã sản phẩm đã tồn tại' 
+                message: 'Ca đã tồn tại.' 
             }, {})).end();
 
         return res.status(StatusCodes.CREATED).json(responseFormat(true, {} , {
-            product: newProduct
+            weekly_shift: shift
         })).end();
 
     } catch(e) {
@@ -47,10 +35,10 @@ router.post('/', validate(schemas.createProduct), async (req, res) => {
 });
 
 /**
- * Get all products
+ * Get all shifts
  * 
  * GET
- * /api/products?name=&page=&limit=&category_id=&
+ * /api/shifts?name=&page=&limit=&
  * 
  */
 router.get('/', async (req, res) => {
@@ -59,20 +47,18 @@ router.get('/', async (req, res) => {
 
     if (req.query.page) page = req.query.page.toString();
     if (req.query.limit) limit = req.query.limit.toString();
-    if (req.query.category_id) query.category = Number.parseInt(req.query.category_id.toString());
-    if (req.query.name) query.name = new RegExp(req.query.name, 'i');
 
     try {
-        const products = await productService.getAllProducts(query, page, limit);
-        if (products.docs.length <= 0) 
+        const shifts = await shiftService.getAllShifts(query, page, limit);
+        if (shifts.docs.length <= 0) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Không tìm thấy danh sách sản phẩm.' 
+                message: 'Không tìm thấy danh sách ca' 
             }, {})).end();
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
-            products: products.docs,
+            weekly_shifts: shifts.docs,
             pagination: {
-                ...products,
+                ...shifts,
                 docs: null
             }
         }));
@@ -85,25 +71,25 @@ router.get('/', async (req, res) => {
 
 
 /**
- * Get product by id
+ * Get shift by id
  * 
  * GET
- * /api/products/id
+ * /api/shifts/{id}
  * 
  */
 router.get('/:id', async (req, res) => {
 
-    const productId = req.params.id;
+    const shiftId = req.params.id;
 
     try {
-        const product = await productService.getProductById(productId);
-        if (!product) 
+        const shift = await shiftService.getProductById(shiftId);
+        if (!shift) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Không tìm thấy sản phẩm yêu cầu.' 
             }, {})).end();
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
-            product
+            weekly_shift: product
         }));
 
     } catch(e) {
@@ -114,23 +100,23 @@ router.get('/:id', async (req, res) => {
 
 
 /**
- * Update product
+ * Update weekly_shift
  * 
  * PATCH
- * /api/products
+ * /api/shifts
  * 
  */
 router.patch('/', async (req, res) => {
     try {
-        const isUpdated = await productService.updateProduct(req.body);
+        const isUpdated = await shiftService.updateShift(req.body);
 
         if (!isUpdated) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Sản phẩm ' + req.body.id + ' không tồn tại.' 
+                message: 'Ca ' + req.body.id + ' không tồn tại.' 
             }, {})).end();
 
-        const newProduct = await productService.getProductById(req.body.id);
-        return res.status(StatusCodes.OK).json(responseFormat(true, {} , { product: newProduct }));
+        const newShift = await shiftService.getShiftById(req.body.id);
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , { weekly_shift: newShift }));
 
     } catch(e) {
         console.log(e);
@@ -143,17 +129,17 @@ router.patch('/', async (req, res) => {
  * Delete one product
  * 
  * DELETE
- * /api/products/{id}
+ * /api/shifts/{id}
  * 
  */
 router.delete('/:id', async (req, res) => {
-    const productId = req.params.id;
+    const shiftId = req.params.id;
     try {
-        const isDeleted = await productService.deleteProduct(productId);
+        const isDeleted = await shiftService.deleteProduct(shiftId);
 
         if (!isDeleted) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Sản phẩm ' + productId + ' không tồn tại.' 
+                message: 'Ca ' + shiftId + ' không tồn tại.' 
             }, {})).end();
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , { message: "Đã xóa." }));
@@ -168,17 +154,17 @@ router.delete('/:id', async (req, res) => {
  * Delete multi product
  * 
  * DELETE
- * /api/products
+ * /api/shifts
  * 
  */
  router.delete('/', async (req, res) => {
-    const productIds = req.body;
+    const shiftIds = req.body;
     try {
-        const isDeleted = await productService.deleteProducts(productIds);
+        const isDeleted = await shiftService.deleteProducts(shiftIds);
 
         if (!isDeleted) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Danh sách có chứa sản phẩm không tồn tại.' 
+                message: 'Danh sách có chứa ca không tồn tại.' 
             }, {})).end();
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , { message: "Đã xóa." }));

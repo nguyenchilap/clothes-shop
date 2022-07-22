@@ -5,7 +5,7 @@ import { CATEGORIES,
 class ProductService {
 
     async createProduct(product) {
-        const productBySku = await productRepo.findOne({ sku: product.sku, site: product.site });
+        const productBySku = await productRepo.findOne({ sku: product.sku, shop: product.shop });
         if (productBySku) return false;
 
         let stock_quantity = 0;

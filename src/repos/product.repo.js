@@ -19,7 +19,7 @@ class ProductRepo {
     async findByIds(ids) {
         const products = await Product.find({
             _id: { $in: ids }
-        }).populate('shop').lean();
+        }).lean();
         return products;
     }
 
