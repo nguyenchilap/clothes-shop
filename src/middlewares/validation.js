@@ -35,14 +35,12 @@ const schemas = {
           .min(1),
         export_price: Joi.number()
           .min(1),
-        stock_quantity: Joi.number()
-          .min(1),
+        stock_quantity: Joi.number(),
         stock_available: Joi.boolean(),
         special_price: Joi.number(),
         promotion_begin_date: Joi.date(),
         promotion_end_date: Joi.date(),
-        variants: Joi.array()
-          .required(),
+        variants: Joi.array(),
         parameters: Joi.array(),
         category: Joi.number()
           .required(),
