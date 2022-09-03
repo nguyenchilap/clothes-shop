@@ -10,11 +10,13 @@ class ProductService {
 
         let stock_quantity = 0;
 
-        product.variants.map(variant => {
-            if (!variant.price) variant.price = product.export_price;
-            stock_quantity += variant.stock_quantity;
-            return variant;
-        });
+        if (product.variants) {
+            product.variants.map(variant => {
+                if (!variant.price) variant.price = product.export_price;
+                stock_quantity += variant.stock_quantity;
+                return variant;
+            });
+        }
 
         product.stock_quantity = stock_quantity;
 
