@@ -28,7 +28,7 @@ const CATEGORIES = [
         is_primary: false,
     },
     {
-        name: 'Áo quần',
+        name: 'Set Áo quần',
         parent_id: 0,
         is_primary: false,
     },
@@ -64,11 +64,6 @@ const CATEGORIES = [
     },
     {
         name: 'Đầm, váy',
-        parent_id: 1,
-        is_primary: true,
-    },
-    {
-        name: 'Set bộ, jumpsuit',
         parent_id: 1,
         is_primary: true,
     },
@@ -391,6 +386,25 @@ const CATEGORIES = [
         name: 'Trang sức khác',
         parent_id: 6,
         is_primary: true,
+    },
+];
+
+const SET_CATEGORIES = [
+    {
+        id: 0,
+        name: 'Set mùa hè'
+    },
+    {
+        id: 1,
+        name: 'Set mùa thu'
+    },
+    {
+        id: 2,
+        name: 'Set mùa đông'
+    },
+    {
+        id: 3,
+        name: 'Set ngày Tết'
     },
 ]
 

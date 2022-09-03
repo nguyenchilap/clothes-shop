@@ -7,12 +7,12 @@ class ProductRepo {
     }
 
     async findOne(query) {
-        const product = await Product.findOne(query).populate('shop').lean();
+        const product = await Product.findOne(query).lean();
         return product;
     }
 
     async findById(id) {
-        const product = await Product.findOne({_id: id}).populate('shop').lean();
+        const product = await Product.findOne({_id: id}).lean();
         return product;
     }
 
@@ -28,7 +28,6 @@ class ProductRepo {
             page,
             limit,
             lean: true,
-            populate: 'shop',
             sort: '-createdAt'
         });
     }

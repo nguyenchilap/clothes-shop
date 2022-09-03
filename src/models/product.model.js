@@ -11,42 +11,25 @@ const Parameter = new Schema({
     timestamps: false, id: false
 });
 
-const Config = new Schema({
-    name: String,
-    value: String
-}, {
-    timestamps: false, id: false
-});
-
-const Variant = new Schema({
-    sku: String,
-    price: Number,
-    config: [Config],
-    stock_quantity: Number,
-    stock_available: {type: Boolean, default: true},
-}, {
-    timestamps: false, id: false
-});
-
 const Product = new Schema({
-    sku: String,
-    name: String,
-    description: String,
-    image: String,
-    images: [String],
-    import_price: Number,
-    export_price: Number,
-    stock_quantity: Number,
-    stock_available: {type: Boolean, default: true},
-    special_price: Number,
+    sku: String, 
+    name: String, 
+    description: String, 
+    image: String, 
+    images: [String], 
+    import_price: Number, 
+    export_price: Number, 
+    // stock_quantity: Number,
+    // stock_available: {type: Boolean, default: true},
+    special_price: Number, 
     promotion_begin_date: Date,
     promotion_end_date: Date,
-    product_unit: Number,
-    category: Number,
-    variants: [Variant],
-    parameters: [Parameter],
-    created_by: {type: Schema.Types.ObjectId, ref: 'User'},
-    shop: {type: Schema.Types.ObjectId, ref: 'Shop'}
+    product_unit: String, 
+    category: Number, 
+    size: [String], 
+    color: [String],  
+    parameters: [Parameter], 
+    shop: {type: Schema.Types.ObjectId, ref: 'Shop'} 
 }, {
     timestamps: true,
     id: true

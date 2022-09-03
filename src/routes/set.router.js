@@ -1,29 +1,21 @@
 import StatusCodes from 'http-status-codes';
 import { Router } from 'express';
-import productService from '../services/product.service.js';
+import setService from '../services/set.service.js';
 import responseFormat from '../shared/responseFormat.js';
 import { validate, schemas } from '../middlewares/validation.js';
-import { isPrimaryCategory } from '../models/enums.js'
 
 //define constant
 const router = Router();
 
 
 /**
- * Create product
+ * Create set
  * 
  * POST
- * /api/products
+ * /api/sets
  * 
  */
 router.post('/', validate(schemas.createProduct), async (req, res) => {
-    
-    if (!isPrimaryCategory(req.body.category)) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-            message: 'Danh mục sản phẩm không hợp lệ' 
-        }, {})).end();
-    }
-
     try {
         const user = req.user;
         const product = req.body;
@@ -43,7 +35,6 @@ router.post('/', validate(schemas.createProduct), async (req, res) => {
         console.log(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
     }
-
 });
 
 /**

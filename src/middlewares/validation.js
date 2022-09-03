@@ -29,8 +29,7 @@ const schemas = {
     createProduct: Joi.object({
         name: Joi.string()
           .required(),
-        description: Joi.string()
-          .required(),
+        description: Joi.string(),
         sku: Joi.string(),
         import_price: Joi.number()
           .min(1),
@@ -49,8 +48,6 @@ const schemas = {
           .required(),
         product_unit: Joi.number(),
         created_by: Joi.string(),
-        // site: Joi.string()
-        //   .required(),
         image: Joi.string()
           .required(),
         images: Joi.array()
