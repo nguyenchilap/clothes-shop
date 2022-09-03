@@ -77,7 +77,7 @@ function validate(schema) {
         await schema.validateAsync(req.body, { allowUnknown: true });
         next();
       } catch (error) {
-        res.status(StatusCodes.BAD_REQUEST)(responseFormat(false, { message: error.message }));
+        res.status(StatusCodes.BAD_REQUEST).json(responseFormat(false, { message: error.message }));
       }
     }
 }
