@@ -8,9 +8,11 @@ import commonRouter from './common.router.js';
 import shopRouter from './shop.router.js';
 import userRouter from './user.router.js';
 import siteRouter from './site.router.js';
+import setRouter from './set.router.js';
 
 const baseRouter = Router();
 
+baseRouter.use('/sets', jwtAuth(), setRouter);
 baseRouter.use('/products', jwtAuth(), productRouter);
 baseRouter.use('/shifts', jwtAuth(), shiftRouter);
 baseRouter.use('/categories', jwtAuth(), categoryRouter);

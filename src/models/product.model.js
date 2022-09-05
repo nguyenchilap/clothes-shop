@@ -27,7 +27,10 @@ const Product = new Schema({
     product_unit: String, 
     category: Number, 
     size: [String], 
-    color: [String],  
+    color: [{
+        code: String,
+        name: String
+    }],  
     parameters: [Parameter], 
     shop: {type: Schema.Types.ObjectId, ref: 'Shop'} 
 }, {

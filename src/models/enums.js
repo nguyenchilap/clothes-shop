@@ -28,7 +28,7 @@ const CATEGORIES = [
         is_primary: false,
     },
     {
-        name: 'Set Áo quần',
+        name: 'Áo quần',
         parent_id: 0,
         is_primary: false,
     },
@@ -54,6 +54,11 @@ const CATEGORIES = [
     },
     {
         name: 'Trang sức',
+        parent_id: 0,
+        is_primary: false,
+    },
+    {
+        name: 'Set',
         parent_id: 0,
         is_primary: false,
     },
@@ -387,26 +392,28 @@ const CATEGORIES = [
         parent_id: 6,
         is_primary: true,
     },
+    {
+        name: 'Set mùa hè',
+        parent_id: 7,
+        is_primary: true,
+    },
+    {
+        name: 'Set mùa thu',
+        parent_id: 7,
+        is_primary: true,
+    },
+    {
+        name: 'Set mùa đông',
+        parent_id: 7,
+        is_primary: true,
+    },
+    {
+        name: 'Set ngày Tết',
+        parent_id: 7,
+        is_primary: true,
+    },
 ];
 
-const SET_CATEGORIES = [
-    {
-        id: 0,
-        name: 'Set mùa hè'
-    },
-    {
-        id: 1,
-        name: 'Set mùa thu'
-    },
-    {
-        id: 2,
-        name: 'Set mùa đông'
-    },
-    {
-        id: 3,
-        name: 'Set ngày Tết'
-    },
-]
 
 function getProductUnitByCode(code) {
     for(const value of Object.values(PRODUCT_UNIT)) {

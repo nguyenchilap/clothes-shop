@@ -3,6 +3,8 @@ import setRepo from '../repos/set.repo.js';
 class SetService {
 
     async createSet(set) {
+        const setBySku = await setRepo.findOne({ sku: set.sku, shop: set.shop });
+        if (setBySku) return false;
         return await setRepo.create(set);
     }
 

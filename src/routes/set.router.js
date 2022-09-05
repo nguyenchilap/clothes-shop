@@ -15,20 +15,19 @@ const router = Router();
  * /api/sets
  * 
  */
-router.post('/', validate(schemas.createProduct), async (req, res) => {
+router.post('/', validate(schemas.createSet), async (req, res) => {
     try {
         const user = req.user;
-        const product = req.body;
-        product.created_by = user.id;
+        const set = req.body;
 
-        const newProduct = await productService.createProduct(product);
-        if (!newProduct) 
+        const newSet = await setService.createSet(product);
+        if (!newSet) 
             return res.status(StatusCodes.CONFLICT).json(responseFormat(false, { 
-                message: 'Mã sản phẩm đã tồn tại' 
+                message: 'Mã set đã tồn tại' 
             }, {})).end();
 
         return res.status(StatusCodes.CREATED).json(responseFormat(true, {} , {
-            product: newProduct
+            set: newSet
         })).end();
 
     } catch(e) {
@@ -38,10 +37,10 @@ router.post('/', validate(schemas.createProduct), async (req, res) => {
 });
 
 /**
- * Get all products
+ * Get all sets
  * 
  * GET
- * /api/products?name=&page=&limit=&category_id=&shop=&
+ * /api/sets?name=&page=&limit=&category_id=&shop=&
  * 
  */
 router.get('/', async (req, res) => {
@@ -55,10 +54,10 @@ router.get('/', async (req, res) => {
     if (req.query.shop) query.shop = Number.parseInt(req.query.shop.toString());
 
     try {
-        const products = await productService.getAllProducts(query, page, limit);
+        const products = await setService.getAllProducts(query, page, limit);
         if (products.docs.length <= 0) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Không tìm thấy danh sách sản phẩm.' 
+                message: 'Không tìm thấy danh sách set.' 
             }, {})).end();
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
@@ -77,25 +76,25 @@ router.get('/', async (req, res) => {
 
 
 /**
- * Get product by id
+ * Get set by id
  * 
  * GET
- * /api/products/id
+ * /api/sets/id
  * 
  */
 router.get('/:id', async (req, res) => {
 
-    const productId = req.params.id;
+    const setId = req.params.id;
 
     try {
-        const product = await productService.getProductById(productId);
-        if (!product) 
+        const set = await setService.getSetById(setId);
+        if (!set) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
-                message: 'Không tìm thấy sản phẩm yêu cầu.' 
+                message: 'Không tìm thấy set.' 
             }, {})).end();
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
-            product
+            set
         }));
 
     } catch(e) {
@@ -106,23 +105,23 @@ router.get('/:id', async (req, res) => {
 
 
 /**
- * Update product
+ * Update set
  * 
  * PATCH
- * /api/products
+ * /api/sets
  * 
  */
 router.patch('/', async (req, res) => {
     try {
-        const isUpdated = await productService.updateProduct(req.body);
+        const isUpdated = await setService.updateSet(req.body);
 
         if (!isUpdated) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Sản phẩm ' + req.body.id + ' không tồn tại.' 
             }, {})).end();
 
-        const newProduct = await productService.getProductById(req.body.id);
-        return res.status(StatusCodes.OK).json(responseFormat(true, {} , { product: newProduct }));
+        const newSet = await setService.getSetById(req.body.id);
+        return res.status(StatusCodes.OK).json(responseFormat(true, {} , { set: newSet }));
 
     } catch(e) {
         console.log(e);
@@ -141,7 +140,7 @@ router.patch('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const productId = req.params.id;
     try {
-        const isDeleted = await productService.deleteProduct(productId);
+        const isDeleted = await setService.deleteProduct(productId);
 
         if (!isDeleted) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
@@ -166,7 +165,7 @@ router.delete('/:id', async (req, res) => {
  router.delete('/', async (req, res) => {
     const productIds = req.body;
     try {
-        const isDeleted = await productService.deleteProducts(productIds);
+        const isDeleted = await setService.deleteProducts(productIds);
 
         if (!isDeleted) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
