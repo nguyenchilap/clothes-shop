@@ -5,7 +5,8 @@ import { CATEGORIES,
     getRootCategories,
     getCategoryByIndex,
     getCategoryByName,
-    getChildCategoriesByParentIndex } from '../models/enums.js'
+    getChildCategoriesByParentIndex,
+    getSetCategories } from '../models/enums.js'
 
 
 //define constant
@@ -112,6 +113,30 @@ router.get('/child', (req, res) => {
         }
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {}, { categories })).end();
+    } catch(e) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
+    }
+});
+
+/**
+ * Get set categories
+ * 
+ * GET
+ * /api/categories/set
+ * 
+ */
+ router.get('/set', (req, res) => {
+
+    try {
+        const setCategories = getSetCategories();
+
+        if (!setCategories || setCategories.length <= 0) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
+                message: 'Không tồn tại.' 
+            }, {})).end();
+        }
+
+        return res.status(StatusCodes.OK).json(responseFormat(true, {}, { setCategories })).end();
     } catch(e) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { message: e }, {})).end()
     }

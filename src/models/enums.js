@@ -446,6 +446,13 @@ function getChildCategoriesByParentIndex(parentIndex) {
     }).filter(category => category.parent_id === parentIndex);
 }
 
+function getSetCategories() {
+    return CATEGORIES.map((category, idx) => {
+        category.id = idx;
+        return category;
+    }).filter(category => category.parent_id === 7);
+}
+
 function isPrimaryCategory(index) {
     const category = CATEGORIES[index];
     if (category) {
@@ -465,4 +472,5 @@ export {
     getCategoryByIndex,
     getCategoryByName,
     getChildCategoriesByParentIndex,
+    getSetCategories
 }
