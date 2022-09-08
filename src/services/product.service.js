@@ -1,6 +1,6 @@
 import productRepo from '../repos/product.repo.js';
 import { CATEGORIES,
-    getCategoryByIndex } from '../models/enums.js';
+    getCategoryByIndex, getProductUnitByCode } from '../models/enums.js';
 
 class ProductService {
 
@@ -10,13 +10,13 @@ class ProductService {
 
         let stock_quantity = 0;
 
-        if (product.variants) {
-            product.variants.map(variant => {
-                if (!variant.price) variant.price = product.export_price;
-                stock_quantity += variant.stock_quantity;
-                return variant;
-            });
-        }
+        // if (product.variants) {
+        //     product.variants.map(variant => {
+        //         if (!variant.price) variant.price = product.export_price;
+        //         stock_quantity += variant.stock_quantity;
+        //         return variant;
+        //     });
+        // }
 
         product.stock_quantity = stock_quantity;
 
@@ -28,6 +28,7 @@ class ProductService {
         if (products.docs.length <= 0) return products;
         products.docs.map(product => {
             product.category = getCategoryByIndex(product.category);
+            product.product_unit = getProductUnitByCode(product.product_unit);
             return product;
         });
         return products;
@@ -37,6 +38,7 @@ class ProductService {
         let product = await productRepo.findById(productId);
         if (!product.category) return product;
         product.category = getCategoryByIndex(product.category);
+        product.product_unit = getProductUnitByCode(product.product_unit);
         return product;
     }
 
