@@ -64,6 +64,13 @@ const schemas = {
       years_old: Joi.number()
     }),
 
+    createSet: Joi.object({
+      name: Joi.string()
+          .required(),
+      description: Joi.string(),
+      sku: Joi.string(),
+    }),
+
     createShift: Joi.object({
       from_date: Joi.string()
           .required(),
