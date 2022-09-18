@@ -1,4 +1,6 @@
 import setRepo from '../repos/set.repo.js';
+import { CATEGORIES,
+    getCategoryByIndex } from '../models/enums.js';
 
 class SetService {
 
@@ -9,11 +11,20 @@ class SetService {
     }
 
     async getSetById(setId) {
-        return await setRepo.findOne({_id: setId});
+        let set = await setRepo.findById(setId);
+        if (!set.category) return set;
+        set.category = getCategoryByIndex(set.category);
+        return set;
     }
 
-    async getAllSets() {
-        return await setRepo.find();
+    async getAllSets(query, page, limit) {
+        const sets = await setRepo.find(query, page, limit);
+        if (sets.docs.length <= 0) return sets;
+        sets.docs.map(set => {
+            set.category = getCategoryByIndex(set.category);
+            return set;
+        });
+        return sets;
     }
 
     async updateSet(set) {

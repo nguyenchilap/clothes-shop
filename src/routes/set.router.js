@@ -17,10 +17,9 @@ const router = Router();
  */
 router.post('/', validate(schemas.createSet), async (req, res) => {
     try {
-        const user = req.user;
         const set = req.body;
 
-        const newSet = await setService.createSet(product);
+        const newSet = await setService.createSet(set);
         if (!newSet) 
             return res.status(StatusCodes.CONFLICT).json(responseFormat(false, { 
                 message: 'Mã set đã tồn tại' 

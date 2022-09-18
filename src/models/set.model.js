@@ -17,7 +17,7 @@ const Set = new Schema({
     special_price: Number, 
     promotion_begin_date: Date,
     promotion_end_date: Date,
-    set_category: Number, 
+    category: Number, 
     shop: {type: Schema.Types.ObjectId, ref: 'Shop'} 
 }, {
     timestamps: true,
