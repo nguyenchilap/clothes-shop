@@ -53,16 +53,16 @@ router.get('/', async (req, res) => {
     if (req.query.shop) query.shop = Number.parseInt(req.query.shop.toString());
 
     try {
-        const products = await setService.getAllProducts(query, page, limit);
-        if (products.docs.length <= 0) 
+        const sets = await setService.getAllSets(query, page, limit);
+        if (sets.docs.length <= 0) 
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseFormat(false, { 
                 message: 'Không tìm thấy danh sách set.' 
             }, {})).end();
 
         return res.status(StatusCodes.OK).json(responseFormat(true, {} , {
-            products: products.docs,
+            sets: sets.docs,
             pagination: {
-                ...products,
+                ...sets,
                 docs: null
             }
         }));
