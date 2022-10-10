@@ -43,7 +43,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(cors(corsOption));
+app.use(cors());
 
 /***********************************************************************************
  *                                  Routes
