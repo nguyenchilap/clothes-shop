@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js module-alias/register --env=production",
+    "start": "node -r src/server.js module-alias/register --env=production",
     "start:dev": "nodemon --inspect src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
