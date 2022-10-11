@@ -61,8 +61,9 @@ router.get('/units/product', (req, res) => {
  */
 router.post('/upload-images', upload.array('images'), async (req, res) => {
     try {
-        if (!req.files) 
+        if (!req.files) {
             return res.status(StatusCodes.BAD_REQUEST).json(responseFormat(false, { message: 'Chưa có ảnh.' }, {}));
+        }
         const paths = req.files.map(image => image.path);
         return res.status(StatusCodes.CREATED).json(responseFormat(true, {}, paths));
     } catch(e) {

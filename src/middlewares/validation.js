@@ -45,7 +45,7 @@ const schemas = {
         parameters: Joi.array(),
         category: Joi.number()
           .required(),
-        product_unit: Joi.number(),
+        product_unit: Joi.string(),
         created_by: Joi.string(),
         image: Joi.string()
           .required(),
