@@ -23,6 +23,8 @@ db.connect();
  *                                  HTTP Logger
  **********************************************************************************/
 
+console.log(process.env);
+
 //Development
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
