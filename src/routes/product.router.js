@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
     if (req.query.limit) limit = req.query.limit.toString();
     if (req.query.category_id) query.category = Number.parseInt(req.query.category_id.toString());
     if (req.query.name) query.name = new RegExp(req.query.name, 'i');
-    if (req.query.shop) query.shop = Number.parseInt(req.query.shop.toString());
+    if (req.query.shop) query.shop = req.query.shop.toString();
 
     try {
         const products = await productService.getAllProducts(query, page, limit);
