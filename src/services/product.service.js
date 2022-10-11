@@ -28,7 +28,6 @@ class ProductService {
         if (products.docs.length <= 0) return products;
         products.docs.map(product => {
             product.category = getCategoryByIndex(product.category);
-            product.product_unit = getProductUnitByCode(product.product_unit);
             return product;
         });
         return products;
@@ -38,7 +37,6 @@ class ProductService {
         let product = await productRepo.findById(productId);
         if (!product.category) return product;
         product.category = getCategoryByIndex(product.category);
-        product.product_unit = getProductUnitByCode(product.product_unit);
         return product;
     }
 

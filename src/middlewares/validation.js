@@ -43,8 +43,7 @@ const schemas = {
         promotion_end_date: Joi.date(),
         variants: Joi.array(),
         parameters: Joi.array(),
-        category: Joi.number()
-          .required(),
+        category: Joi.number(),
         product_unit: Joi.string(),
         created_by: Joi.string(),
         image: Joi.string()

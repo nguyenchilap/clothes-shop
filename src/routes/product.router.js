@@ -50,7 +50,7 @@ router.post('/', validate(schemas.createProduct), async (req, res) => {
  * Get all products
  * 
  * GET
- * /api/products?name=&page=&limit=&category_id=&shop=&
+ * /api/products?name=&page=&limit=&category_id=&shop=&sku=&
  * 
  */
 router.get('/', async (req, res) => {
@@ -61,6 +61,7 @@ router.get('/', async (req, res) => {
     if (req.query.limit) limit = req.query.limit.toString();
     if (req.query.category_id) query.category = Number.parseInt(req.query.category_id.toString());
     if (req.query.name) query.name = new RegExp(req.query.name, 'i');
+    if (req.query.sku) query.sku = new RegExp(req.query.sku, 'i');
     if (req.query.shop) query.shop = req.query.shop.toString();
 
     try {
