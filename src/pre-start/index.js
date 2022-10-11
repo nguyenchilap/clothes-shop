@@ -29,5 +29,7 @@ const __dirname = dirname(__filename);
   if (result2.error) {
     throw result2.error;
   }
+
+  console.log(options.env);
 })();
  
