@@ -4,8 +4,6 @@ import responseFormat from '../shared/responseFormat.js';
 import { PRODUCT_UNIT,
     getProductUnitByCode } from '../models/enums.js';
 import upload from '../middlewares/multer.js';
-import cloudinary from '../shared/cloudinary.js';
-import fs from 'fs';
 
 //define constant
 const router = Router();
@@ -61,7 +59,7 @@ router.get('/units/product', (req, res) => {
  */
 router.post('/upload-images', upload.array('images'), async (req, res) => {
     try {
-        if (!req.files) {
+        if (req.files.length <= 0) {
             return res.status(StatusCodes.BAD_REQUEST).json(responseFormat(false, { message: 'Chưa có ảnh.' }, {}));
         }
         const paths = req.files.map(image => image.path);

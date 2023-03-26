@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node -r src/server.js",
     "start:dev": "nodemon --inspect src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "netlify deploy --prod"
   },
   "type": "module",
   "author": "nclap",
@@ -28,6 +29,8 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
+    "netlify-cli": "^13.2.1",
+    "netlify-lambda": "^2.0.16",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

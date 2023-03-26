@@ -6,3 +6,6 @@ node_modules/
 src/pre-start/env/
 
 
+
+# Local Netlify folder
+.netlify

@@ -12,13 +12,13 @@ import setRouter from './set.router.js';
 
 const baseRouter = Router();
 
-baseRouter.use('/sets', jwtAuth(), setRouter);
-baseRouter.use('/products', jwtAuth(), productRouter);
-baseRouter.use('/shifts', jwtAuth(), shiftRouter);
-baseRouter.use('/categories', jwtAuth(), categoryRouter);
-baseRouter.use('/shops', jwtAuth(), shopRouter);
-baseRouter.use('/users', jwtAuth(), userRouter);
-baseRouter.use('/commons', jwtAuth(), commonRouter);
+baseRouter.use('/sets', setRouter);
+baseRouter.use('/products', productRouter);
+baseRouter.use('/shifts', shiftRouter);
+baseRouter.use('/categories', categoryRouter);
+baseRouter.use('/shops', shopRouter);
+baseRouter.use('/users', userRouter);
+baseRouter.use('/commons', commonRouter);
 baseRouter.use('/', siteRouter);
 
 export default baseRouter;
