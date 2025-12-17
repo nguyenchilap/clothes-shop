@@ -1,0 +1,116 @@
+/* Base styles - common across all themes */
+
+/* Typography */
+h1 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+h4 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+small {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Links */
+a {
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+}
+
+/* Form Elements */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Selection */
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Utility Classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

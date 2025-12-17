@@ -1,0 +1,74 @@
+{
+  "app": {
+    "name": "OKA User Frontend",
+    "version": "v1.0.0"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "close": "Đóng",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "submit": "Gửi",
+    "search": "Tìm kiếm",
+    "noData": "Không có dữ liệu"
+  },
+  "auth": {
+    "login": {
+      "title": "Đăng nhập tài khoản của bạn",
+      "subtitle": "Chào mừng bạn!",
+      "description": "Kết nối để lưu trữ, chia sẻ và trải nghiệm OKA",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Nhập email",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "forgotPassword": "Quên mật khẩu",
+      "submitButton": "Đăng nhập",
+      "submitting": "Đang đăng nhập..."
+    },
+    "errors": {
+      "emailRequired": "Vui lòng điền email",
+      "emailInvalid": "Email không hợp lệ",
+      "passwordRequired": "Vui lòng nhập mật khẩu",
+      "invalidCredentials": "Email hoặc mật khẩu không đúng.",
+      "accountLocked": "Tài khoản đã bị khóa",
+      "loginFailed": "Đăng nhập thất bại. Vui lòng thử lại."
+    }
+  },
+  "footer": {
+    "termsOfService": "Điều khoản sử dụng",
+    "privacyPolicy": "Chính sách riêng tư"
+  },
+  "pages": {
+    "folder": {
+      "title": "Thư mục",
+      "comingSoon": "Chức năng quản lý thư mục sẽ được phát triển..."
+    },
+    "trash": {
+      "title": "Thùng rác",
+      "comingSoon": "Chức năng thùng rác sẽ được phát triển..."
+    },
+    "notFound": {
+      "title": "Không tìm thấy trang",
+      "message": "The requested page could not be found."
+    },
+    "error": {
+      "title": "Lỗi",
+      "message": "An unexpected error occurred."
+    }
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "email": "Email không hợp lệ",
+    "minLength": "Tối thiểu {min} ký tự",
+    "maxLength": "Tối đa {max} ký tự"
+  }
+}
+
